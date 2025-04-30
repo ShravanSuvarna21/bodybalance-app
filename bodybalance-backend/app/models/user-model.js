@@ -16,6 +16,7 @@ password:{
 contact: {
     type: String,
     required: true,
+     match: /^[0-9]{10}$/
   },
 role:{
     type:String,
@@ -23,12 +24,12 @@ role:{
     default:"coach"
 },
 isActive:{
-    type:Boolean,
-    default:true
+    type: Boolean,
+  default: true 
 },
 isApproved:{
-    type:Boolean,
-    default:false
+    type: Boolean,
+    default: true 
 },  
 assignedCoach: {
     type: mongoose.Schema.Types.ObjectId,
