@@ -68,9 +68,21 @@ const userRegisterValidation = {
     trim: true,
   },
   contact: {
-    type: String,
-    required: true,
-    match: /^[0-9]{10}$/, // accepts 10-digit numbers
+    in:['body'],
+    exists: {
+      errorMessage: "Name field is required",
+    },
+    notEmpty: {
+      errorMessage: "Name cannot be empty",
+    },
+    // match: /^[0-9]{10}$/, // accepts 10-digit numbers
+    isLength: {
+      options: { min: 10, max: 10 },
+      errorMessage: "Contact must be exactly 10 digits",
+    },
+    isNumeric: {
+      errorMessage: "Contact must contain only numbers",
+    },
   },
 };
 const userLoginValidation = {
