@@ -8,15 +8,15 @@ userController.Register = async (req, res) => {
   if (!error.isEmpty()) {
     return res.status(400).json({ errors: error.array() });
   }
-  const { name, email, password, role } = req.body;
-  console.log("req", req.body);
+  const { name, email, password, role,contact} = req.body;
+  console.log('REQ BODY', req.body);
   try {
-    const user = new User({ name, email, password, role });
+    const user = new User({ name, email, password, role,contact });
     const salt = await bcryptjs.genSalt();
     const hash = await bcryptjs.hash(password, salt);
     const totalCount = await User.countDocuments();
     if (totalCount == 0) {
-      user.role = user?"admin":'coach'
+      user.role = "admin"
       user.isApproved = true;
     }
     if (totalCount > 0 && user.role == "admin") {
