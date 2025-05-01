@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { isEmail } from "validator";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from "./Axios";
 export default function Register() {
   const [name, setName] = useState("");
@@ -40,22 +40,22 @@ export default function Register() {
         contact: contact,
         role: "admin", // or "coach"
         isActive: true,
-        isApproved: true
+        isApproved: true,
       };
       console.log("Submitting:", formData);
       try {
         const response = await axios.post("/user/register", formData);
-        console.log(response.data)
-        navigate('/login');
+        console.log(response.data);
+        navigate("/login");
       } catch (err) {
-        console.log(err.response.data)
+        console.log(err.response.data);
         setServerErrors(err.response.data.error);
         setClientErrors({});
       }
     }
   };
   return (
-    <div>
+    <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
       <h2>Register here</h2>
       {serverErrors && (
         <div>
@@ -67,15 +67,19 @@ export default function Register() {
         </div>
       )}
       <form onSubmit={handleSubmit}>
-        <div>
+        <div >
           <label htmlFor="name">Enter Name</label> <br />
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             id="name"
+            placeholder="Enter Name"
+            className="w-1/2 mb-3 p-2 rounded border"
           />
-          {clientErrors.name && <p className="text-red-500 text-sm mt-1"> {clientErrors.name} </p>}
+          {clientErrors.name && (
+            <p className="text-red-500 text-sm mt-1"> {clientErrors.name} </p>
+          )}
         </div>
         <div>
           <label htmlFor="email">Enter email</label> <br />
@@ -84,8 +88,12 @@ export default function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             id="email"
+            placeholder="Enter Email"
+            className="w-1/2 mb-3 p-2 rounded border"
           />
-          {clientErrors.email && <p className="text-red-500 text-sm mt-1"> {clientErrors.email} </p>}
+          {clientErrors.email && (
+            <p className="text-red-500 text-sm mt-1"> {clientErrors.email} </p>
+          )}
         </div>
         <div>
           <label htmlFor="password">Enter password</label> <br />
@@ -94,19 +102,32 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             id="password"
+            placeholder="Enter Password"
+            className="w-1/2 mb-3 p-2 rounded border"
           />
-          {clientErrors.password && <p className="text-red-500 text-sm mt-1"> {clientErrors.password} </p>}
+          {clientErrors.password && (
+            <p className="text-red-500 text-sm mt-1">
+              
+              {clientErrors.password}{" "}
+            </p>
+          )}
         </div>
         <label htmlFor="contact">Enter contact</label> <br />
-          <input
-            type="text"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-            id="contact"
-          />
-          {clientErrors.contact && <p className="text-red-500 text-sm mt-1"> {clientErrors.contact} </p>}
+        <input
+          type="text"
+          value={contact}
+          onChange={(e) => setContact(e.target.value)}
+          id="contact"
+          placeholder="Enter Contact"
+          className="w-1/2 mb-3 p-2 rounded border"
+        />
+        {clientErrors.contact && (
+          <p className="text-red-500 text-sm mt-1"> {clientErrors.contact} </p>
+        )}
         <div>
-      <button>submit</button>
+          <button className="text-gray px-4 py-2 rounded mt-2 hover:bg-blue-800">
+            submit
+          </button>
         </div>
       </form>
     </div>
