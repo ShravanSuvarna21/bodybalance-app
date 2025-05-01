@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"; 
+import Home from "./components/Home";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Register from "./components/Register";
@@ -6,7 +7,7 @@ import Login from "./components/Login";
 function App() {
   return (
   <div>
- <h1> Your Journey Starts Here – BodyBalance Fitness App</h1>
+<Home/>
   <NavBar />
   <Routes>
   <Route path="/register" element={<Register />} />
