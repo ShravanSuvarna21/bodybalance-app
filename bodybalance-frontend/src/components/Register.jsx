@@ -51,6 +51,7 @@ export default function Register() {
         console.log(err.response.data);
         setServerErrors(err.response.data.error);
         setClientErrors({});
+        
       }
     }
   };
@@ -67,7 +68,7 @@ export default function Register() {
         </div>
       )}
       <form onSubmit={handleSubmit}>
-        <div >
+        <div>
           <label htmlFor="name">Enter Name</label> <br />
           <input
             type="text"
@@ -107,7 +108,6 @@ export default function Register() {
           />
           {clientErrors.password && (
             <p className="text-red-500 text-sm mt-1">
-              
               {clientErrors.password}{" "}
             </p>
           )}
