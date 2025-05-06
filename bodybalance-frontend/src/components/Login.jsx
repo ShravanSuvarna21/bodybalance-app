@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { isEmail } from "validator";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { login } from "./UserSlice";
+import { useDispatch } from "react-redux";
+import { fetchLogInAccount, login } from "./UserSlice";
 import axios from "axios";
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ export default function Login() {
   const [clientErrors, setClientErrors] = useState({});
   const [serverErrors, setServerErrors] = useState(null);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = {};
@@ -34,22 +34,24 @@ export default function Login() {
         email: email,
         password: password,
       };
-      console.log("formadta",formData)
-      try {
-        const response = await axios.post("/user/login", formData);
-        console.log(response.data);
-        // localStorage.setItem("token", response.data.token);
-        // const userResponse = await axios.get("/account", {
-        //   headers: { Authorization: localStorage.getItem("token") },
-        // });
-        // console.log(userResponse.data)
-        // dispatch(Login(Response.data));
-        // navigate("/account");
-      } catch (err) {
-        console.log(err);
-        setServerErrors(err.response.data.error);
-        setClientErrors({});
-      }
+      console.log("formadta", formData);
+      dispatch(fetchLogInAccount(formData))
+      // try {
+      //   const response = await axios.post("http://localhost:3001/user/login", formData);
+
+       
+      //   localStorage.setItem("token", response.data.token);
+      //   const userResponse = await axios.get("/user/account", {
+      //     headers: { Authorization: localStorage.getItem("token") },
+      //   });
+      //   console.log("res",userResponse);
+      //   dispatch(LoginUser(Response.data));
+        navigate("/account");
+      // } catch (err) {
+      //   console.log(err);
+      //   setServerErrors(err.response.data.error);
+      //   setClientErrors({});
+      // }
     }
   };
   return (
