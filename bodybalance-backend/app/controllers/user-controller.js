@@ -9,7 +9,6 @@ userController.Register = async (req, res) => {
     return res.status(400).json({ errors: error.array() });
   }
   const { name, email, password, role,contact} = req.body;
-  console.log('REQ BODY', req.body);
   try {
     const user = new User({ name, email, password, role,contact });
     const salt = await bcryptjs.genSalt();
@@ -30,15 +29,20 @@ userController.Register = async (req, res) => {
   }
 };
 userController.Login = async (req, res) => {
+  console.log("req.Body",req.body)
   const error = validationResult(req);
+
   if (!error.isEmpty()) {
-    return res.status(400).json({ errors: error.array() });
+    return res.status(400).json({ errors: error.array()});
   }
   const { email, password } = req.body;
+  
   try {
     const user = await User.findOne({ email });
+ 
     if (!user) {
       return res.status(404).json({ Notice: "Email or Password is invalid" });
+      
     }
     const isVerified = await bcryptjs.compare(password, user.password);
     if (!isVerified) {
